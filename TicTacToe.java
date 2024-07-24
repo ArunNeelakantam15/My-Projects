@@ -74,7 +74,6 @@ class Game{
 		}
 		return false;
 	}
-	
 }
 
 
@@ -82,16 +81,6 @@ abstract class Player{
 	String name;
 	char mark;
 	abstract void makeMove();
-	boolean isValidMove(int row, int col) {
-		if (row>=0 && row <3 && col>=0 && col <3) {
-			if(Game.Board[row][col]== ' ') {
-				return true;
-			}
-		}
-		System.out.println("Oh! '"+ name+"' It's an Invalid Move");
-		return false;
-	}
-	
 }
 
 
@@ -105,11 +94,19 @@ class HumanPlayer extends Player{
 		int row;
 		int col;
 		do {
-			System.out.println("My Dear '" + name + "' Please enter the Row and Column");
 			row=scan.nextInt();
 			col=scan.nextInt();
 		}while(!isValidMove(row,col));	
 		Game.Marking(row,col,mark);
+	}
+	boolean isValidMove(int row, int col) {
+		if (row>=0 && row <3 && col>=0 && col <3) {
+			if(Game.Board[row][col]== ' ') {
+				return true;
+			}
+		}
+		System.out.println("Oh! '"+ name+"' It's an Invalid Move");
+		return false;
 	}
 	
 }
@@ -125,12 +122,19 @@ class AIPlayer extends Player{
 		int row;
 		int col;
 		do {
-			System.out.println("My Dear '" + name + "' Please enter the Row and Column");
 			Random r= new Random();
 			row = r.nextInt(3);
 			col = r.nextInt(3);
 		}while(!isValidMove(row,col));	
 		Game.Marking(row,col,mark);
+	}
+	boolean isValidMove(int row, int col) {
+		if (row>=0 && row <3 && col>=0 && col <3) {
+			if(Game.Board[row][col]== ' ') {
+				return true;
+			}
+		}
+		return false;
 	}
 }
 
@@ -139,7 +143,7 @@ public class TicTacToe {
 	public static void main (String...args) {
 		Game g= new Game();
 		Scanner scan=new Scanner(System.in);
-		System.out.println("Please enter Respective Numerics to Select the Mode");
+		System.out.println("Please Select the Mode by entering the Respective Numeric");
 		System.out.println("    1. Human vs Human ");
 		System.out.println("    2. Human vs AI ");
 		int mode=scan.nextInt();
@@ -154,6 +158,7 @@ public class TicTacToe {
 			HumanPlayer cp;
 			cp=p1;
 			while(true) {
+				System.out.println("My Dear '" + cp.name + "' Please enter the Row and Column");
 				cp.makeMove();
 				Game.displayboard();
 				if(Game.columnWin()||Game.rowWin()||Game.DiagonalWin()) {
@@ -182,6 +187,7 @@ public class TicTacToe {
 			Player cp;
 			cp=p1;
 			while(true) {
+				System.out.println("My Dear '" + cp.name + "' Please enter the Row and Column");
 				cp.makeMove();
 				Game.displayboard();
 				if(Game.columnWin()||Game.rowWin()||Game.DiagonalWin()) {
